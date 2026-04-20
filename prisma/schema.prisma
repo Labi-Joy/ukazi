@@ -1,0 +1,230 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(cuid())
+  email         String    @unique
+  name          String?
+  username      String?   @unique
+  password      String?
+  phone         String?
+  address       String?
+  avatar        String?
+  role          Role      @default(STUDENT)
+  emailVerified DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  // Relations
+  accounts       Account[]
+  sessions       Session[]
+  studentProfile StudentProfile?
+  mentorProfile  MentorProfile?
+  messagesSent   Message[]   @relation("MessageSender")
+  notifications  Notification[]
+  reviews        Review[]    @relation("ReviewAuthor")
+  schedule       ScheduleItem[]
+}
+
+enum Role {
+  STUDENT
+  MENTOR
+  ADMIN
+}
+
+model MentorProfile {
+  id                 String   @id @default(cuid())
+  userId             String   @unique
+  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  bio                String?
+  professionalBg     String?
+  skills             String[]
+  teachingExperience String?
+  courses            Course[]
+  enrollments        Enrollment[]
+}
+
+model StudentProfile {
+  id               String   @id @default(cuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  careerInterests  String[]
+  enrollments      Enrollment[]
+}
+
+model Course {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  thumbnail   String?
+  price       Float    @default(0)
+  isFree      Boolean  @default(false)
+  mentorId    String
+  mentor      MentorProfile @relation(fields: [mentorId], references: [id])
+  materials   CourseMaterial[]
+  enrollments Enrollment[]
+  reviews     Review[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model CourseMaterial {
+  id        String   @id @default(cuid())
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title     String
+  url       String
+  type      MaterialType
+  order     Int
+  createdAt DateTime @default(now())
+}
+
+enum MaterialType {
+  VIDEO
+  PDF
+  DOCUMENT
+  OTHER
+}
+
+model Enrollment {
+  id             String   @id @default(cuid())
+  studentId      String
+  student        StudentProfile @relation(fields: [studentId], references: [id])
+  courseId       String
+  course         Course   @relation(fields: [courseId], references: [id])
+  mentorId       String
+  mentor         MentorProfile @relation(fields: [mentorId], references: [id])
+  progress       Float    @default(0)
+  status         EnrollmentStatus @default(ACTIVE)
+  enrolledAt     DateTime @default(now())
+  @@unique([studentId, courseId])
+}
+
+enum EnrollmentStatus {
+  ACTIVE
+  COMPLETED
+  DROPPED
+}
+
+model Conversation {
+  id           String    @id @default(cuid())
+  participants ConversationParticipant[]
+  messages     Message[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model ConversationParticipant {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  userId         String
+  joinedAt       DateTime     @now()
+}
+
+model Message {
+  id             String       @id @default(cuid())
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  senderId       String
+  sender         User         @relation("MessageSender", fields: [senderId], references: [id])
+  content        String
+  createdAt      DateTime     @default(now())
+}
+
+model ScheduleItem {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id])
+  title       String
+  description String?
+  startTime   DateTime
+  endTime     DateTime
+  courseId    String?
+  createdAt   DateTime @default(now())
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  authorId   String
+  author     User     @relation("ReviewAuthor", fields: [authorId], references: [id])
+  courseId   String?
+  course     Course?  @relation(fields: [courseId], references: [id])
+  mentorId   String?
+  rating     Int      // 1–5
+  comment    String?
+  createdAt  DateTime @default(now())
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  type      String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model OTPCode {
+  id        String   @id @default(cuid())
+  email     String
+  code      String   // hashed
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model EmailLog {
+  id        String   @id @default(cuid())
+  to        String
+  subject   String
+  template  String
+  status    EmailStatus
+  error     String?
+  sentAt    DateTime @default(now())
+}
+
+enum EmailStatus {
+  SENT
+  FAILED
+}
+
+// NextAuth required models
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expires      DateTime
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+  @@unique([identifier, token])
+}
