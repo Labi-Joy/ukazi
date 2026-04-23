@@ -14,8 +14,11 @@ const navLinks = [
     { href: "/contact", label: "Contact" },
 ]
 
+import { useOnboarding } from "@/components/providers/OnboardingProvider"
+
 export function Navbar() {
     const pathname = usePathname()
+    const { openOnboarding } = useOnboarding()
 
     return (
         <header className="sticky top-0 z-50 w-full bg-white py-2">
@@ -38,11 +41,11 @@ export function Navbar() {
                 </nav>
 
                 <div className="flex items-center gap-4">
-                    <Button variant="ghost" className="font-bold font-raleway text-neutral-900 hover:text-brand-primary" asChild>
-                        <Link href="/login">Log in</Link>
-                    </Button>
-                    <Button className="bg-brand-primary hover:bg-brand-primary text-white font-bold rounded-none px-9 py-6" asChild>
-                        <Link href="/register">Sign up</Link>
+                    <Button
+                        className="bg-brand-primary hover:bg-brand-primary text-white font-bold rounded-none px-9 py-6"
+                        onClick={openOnboarding}
+                    >
+                        Sign in
                     </Button>
                 </div>
             </Container>

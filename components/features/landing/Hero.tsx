@@ -3,9 +3,11 @@
 import { Container } from "@/components/common/Container"
 import { Button } from "@/components/ui/button"
 import { motion } from "framer-motion"
-import Link from "next/link"
+import { useOnboarding } from "@/components/providers/OnboardingProvider"
 
 export function Hero() {
+    const { openOnboarding } = useOnboarding()
+
     return (
         <section className="relative pt-0 lg:pt-1 lg:pb-0 overflow-hidden bg-white">
             <Container className="relative z-10 grid lg:grid-cols-2 gap-12 items-center">
@@ -27,8 +29,11 @@ export function Hero() {
                     </div>
 
                     <div className="flex flex-col sm:flex-row gap-4">
-                        <Button className="bg-brand-primary hover:bg-brand-primary text-white font-bold h-16 px-12 rounded-none text-xl transition-transform active:scale-95 shadow-xl shadow-brand-primary/20" asChild>
-                            <Link href="/register">Get Started</Link>
+                        <Button
+                            className="bg-brand-primary hover:bg-brand-primary text-white font-bold h-16 px-12 rounded-none text-xl transition-transform active:scale-95 shadow-xl shadow-brand-primary/20"
+                            onClick={openOnboarding}
+                        >
+                            Get Started
                         </Button>
                     </div>
                 </motion.div>

@@ -3,6 +3,7 @@
 import { Container } from "@/components/common/Container"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { useOnboarding } from "@/components/providers/OnboardingProvider"
 
 const categories = [
     { title: "3D Modelling and Animation design", icon: "/icons/3d-icon1.svg" },
@@ -16,6 +17,8 @@ const categories = [
 ]
 
 export function CategoryGrid() {
+    const { openOnboarding } = useOnboarding()
+
     return (
         <section className="py-24 bg-[#2B2B2B] text-white overflow-hidden">
             <Container className="space-y-16">
@@ -60,7 +63,7 @@ export function CategoryGrid() {
 
                 <div className="text-center">
                     <button
-                        onClick={() => window.location.href = '/register'}
+                        onClick={openOnboarding}
                         className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold h-14 px-12 rounded-lg text-lg transition-all shadow-xl shadow-brand-primary/20"
                     >
                         Get Started

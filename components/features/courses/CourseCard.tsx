@@ -71,18 +71,6 @@ export function CourseCard({
                         <p className="text-sm text-neutral-500 font-raleway font-medium">By {mentor}</p>
                     </div>
                 )}
-
-                <div className="pt-4">
-                    <button
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            window.location.href = '/courses/enroll';
-                        }}
-                        className="w-full py-4 bg-white border-2 border-neutral-900 text-neutral-900 font-bold rounded-xl hover:bg-neutral-900 hover:text-white transition-all duration-300 active:scale-[0.98]"
-                    >
-                        Join Now
-                    </button>
-                </div>
             </div>
         </div>
     )

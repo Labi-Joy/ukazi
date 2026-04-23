@@ -31,7 +31,7 @@ export default function ContactPage() {
                             </div>
                             <div className="space-y-1">
                                 <p className="text-sm font-bold text-neutral-900 font-raleway uppercase tracking-wider">Call Us</p>
-                                <p className="text-neutral-600 font-raleway font-medium">+234 812 345 6789</p>
+                                <p className="text-neutral-600 font-raleway font-medium">+234 815 644 2585</p>
                             </div>
                         </div>
                     </div>

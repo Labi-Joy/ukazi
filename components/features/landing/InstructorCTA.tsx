@@ -3,6 +3,7 @@
 import { Container } from "@/components/common/Container"
 import { motion } from "framer-motion"
 import Image from "next/image"
+import { useOnboarding } from "@/components/providers/OnboardingProvider"
 
 const benefits = [
     "Impactful Teaching and Knowledge Sharing",
@@ -15,6 +16,8 @@ const benefits = [
 ]
 
 export function InstructorCTA() {
+    const { openOnboarding } = useOnboarding()
+
     return (
         <section id="become-instructor" className="pt-48 pb-24 bg-white overflow-hidden">
             <Container>
@@ -46,7 +49,7 @@ export function InstructorCTA() {
                         </div>
 
                         <button
-                            onClick={() => window.location.href = '/register/instructor'}
+                            onClick={openOnboarding}
                             className="bg-[#333333] hover:bg-neutral-800 text-white font-bold h-16 px-12 rounded-lg text-xl transition-all shadow-xl"
                         >
                             Become Instructor
