@@ -18,11 +18,11 @@ export function Navbar() {
     const pathname = usePathname()
 
     return (
-        <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <header className="sticky top-0 z-50 w-full bg-white py-2">
             <Container className="flex h-20 items-center justify-between">
                 <Logo />
 
-                <nav className="hidden md:flex items-center gap-8">
+                <nav className="hidden md:flex justify-between gap-20">
                     {navLinks.map((link) => (
                         <Link
                             key={link.href}
@@ -38,11 +38,9 @@ export function Navbar() {
                 </nav>
 
                 <div className="flex items-center gap-4">
-                    <Button variant="ghost" asChild className="hidden sm:flex font-semibold">
-                        <Link href="/login">Sign In</Link>
-                    </Button>
-                    <Button className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold rounded-xl px-6" asChild>
-                        <Link href="/register">Join Ukazi</Link>
+
+                    <Button className="bg-brand-primary hover:bg-brand-primary text-white font-bold rounded-none px-9 py-6" asChild>
+                        <Link href="/register">Sign in</Link>
                     </Button>
                 </div>
             </Container>

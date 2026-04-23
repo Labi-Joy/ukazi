@@ -1,4 +1,5 @@
 import Link from "next/link"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 interface LogoProps {
@@ -7,16 +8,22 @@ interface LogoProps {
 }
 
 export function Logo({ className, variant = "dark" }: LogoProps) {
+    const logoSrc = variant === "dark"
+        ? "/icons/ukazi-logo-dark.svg"
+        : "/icons/ukazi-logo-light.svg"
+
     return (
         <Link
             href="/"
-            className={cn(
-                "text-2xl font-extrabold tracking-tight font-raleway",
-                variant === "dark" ? "text-neutral-900" : "text-white",
-                className
-            )}
+            className={cn("relative h-10 w-32 flex items-center", className)}
         >
-            UKAZI<span className="text-brand-primary">.</span>
+            <Image
+                src={logoSrc}
+                alt="Ukazi Logo"
+                fill
+                className="object-contain"
+                priority
+            />
         </Link>
     )
 }

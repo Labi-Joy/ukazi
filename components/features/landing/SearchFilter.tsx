@@ -1,7 +1,6 @@
 "use client"
 
-import { useState } from "react"
-import { Icon } from "@iconify/react"
+import { Container } from "@/components/common/Container"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import {
@@ -14,61 +13,81 @@ import {
 
 export function SearchFilter() {
     return (
-        <div className="w-full max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl p-4 lg:p-6 mt-12 border border-neutral-100">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
-                {/* Search Input */}
-                <div className="relative md:col-span-1.5 flex items-center">
-                    <Icon icon="solar:magnifer-linear" className="absolute left-4 text-neutral-400 size-5" />
-                    <Input
-                        placeholder="Input course name"
-                        className="pl-12 h-14 bg-neutral-50 border-none rounded-xl font-raleway focus-visible:ring-2 focus-visible:ring-brand-primary"
-                    />
+        <section className="relative -mt-40 z-30 pb-16 bg-white">
+            <Container className="space-y-24">
+                {/* Stats & Trusted Section */}
+                <div className="flex flex-col lg:flex-row gap-0 items-start lg:items-center">
+                    {/* Trusted By Banner */}
+                    <div className="bg-brand-primary rounded-br-[100px] pl-[calc(50vw-50%+60px)] pr-12 py-10 flex items-center gap-6 shadow-[0px_30px_60px_rgba(0,0,0,0.12)] -ml-[calc(50vw-50%)] z-10">
+                        <div className="flex -space-x-5 ml-[-70px]">
+                            {[1, 2, 3, 4, 5].map((i) => (
+                                <div key={i} className="size-16 rounded-full border-2 border-white overflow-hidden shadow-xl bg-white">
+                                    <img
+                                        src={`/images/trust${i}.png`}
+                                        alt={`User ${i}`}
+                                        className="size-full object-cover"
+                                    />
+                                </div>
+                            ))}
+                        </div>
+                        <div className="text-white min-w-[200px] mr-[-40px] text-sm font-raleway font-bold">
+                            <p className="tracking-widest">Trusted by</p>
+                            <p className="">More than 200+</p>
+                            <p className="">Students and Mentors</p>
+                        </div>
+                    </div>
+
+                    {/* Stats Grid */}
+                    <div className="flex-1 grid grid-cols-3 items-center py-8 px-12 h-full">
+                        <div className="text-center space-y-2 border-r border-neutral-200 py-2">
+                            <h3 className="text-4xl font-black font-raleway text-brand-primary">100+</h3>
+                            <p className="text-[14px] font-bold font-raleway text-neutral-600">Total Courses</p>
+                        </div>
+                        <div className="text-center space-y-2 border-r border-neutral-200 py-2">
+                            <h3 className="text-4xl font-black font-raleway text-brand-primary">170+</h3>
+                            <p className="text-[14px] font-bold font-raleway text-neutral-600">Total Instructors</p>
+                        </div>
+                        <div className="text-center space-y-2 py-2">
+                            <h3 className="text-4xl font-black font-raleway text-brand-primary">200+</h3>
+                            <p className="text-[14px] font-bold font-raleway text-neutral-600">Total Students</p>
+                        </div>
+                    </div>
                 </div>
 
-                {/* Vertical Divider (Desktop) */}
-                <div className="hidden md:block w-px h-8 bg-neutral-200 mx-auto" />
+                {/* Main Search Section */}
+                <div className="space-y-12">
+                    <h2 className="text-center text-4xl lg:text-5xl font-black font-raleway text-brand-primary">
+                        Search for courses and Mentors
+                    </h2>
 
-                {/* Category Select */}
-                <div className="md:col-span-1">
-                    <Select>
-                        <SelectTrigger className="h-14 bg-neutral-50 border-none rounded-xl font-raleway focus:ring-2 focus:ring-brand-primary">
-                            <div className="flex items-center gap-2">
-                                <Icon icon="solar:widget-linear" className="text-neutral-400 size-5" />
-                                <SelectValue placeholder="Category" />
-                            </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="uiux">UI/UX Design</SelectItem>
-                            <SelectItem value="web">Web Development</SelectItem>
-                            <SelectItem value="marketing">Marketing</SelectItem>
-                        </SelectContent>
-                    </Select>
-                </div>
+                    <div className="flex flex-col lg:flex-row gap-6 items-center justify-center max-w-5xl mx-auto">
+                        {/* Search Bar Group */}
+                        <div className="flex flex-1 w-full border border-neutral-800 rounded-none overflow-hidden h-20 shadow-sm">
+                            <Input
+                                placeholder="Search for over 70+ courses and mentors"
+                                className="flex-1 border-none h-full bg-white text-xl font-raleway focus-visible:ring-0 px-8 placeholder:text-neutral-400"
+                            />
+                            <Button className="h-full px-12 bg-brand-primary hover:bg-brand-primary text-white font-black text-xl rounded-none">
+                                Search
+                            </Button>
+                        </div>
 
-                {/* Location Select */}
-                <div className="md:col-span-1">
-                    <Select>
-                        <SelectTrigger className="h-14 bg-neutral-50 border-none rounded-xl font-raleway focus:ring-2 focus:ring-brand-primary">
-                            <div className="flex items-center gap-2">
-                                <Icon icon="solar:map-point-linear" className="text-neutral-400 size-5" />
-                                <SelectValue placeholder="Location" />
-                            </div>
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectItem value="online">Online</SelectItem>
-                            <SelectItem value="onsite">On-site</SelectItem>
-                        </SelectContent>
-                    </Select>
+                        {/* Category Select */}
+                        <div className="w-full lg:w-80">
+                            <Select>
+                                <SelectTrigger className="h-20 border border-neutral-800 rounded-none bg-white font-raleway font-bold text-lg px-8 focus:ring-0">
+                                    <SelectValue placeholder="Category" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                    <SelectItem value="design">Design</SelectItem>
+                                    <SelectItem value="development">Development</SelectItem>
+                                    <SelectItem value="marketing">Marketing</SelectItem>
+                                </SelectContent>
+                            </Select>
+                        </div>
+                    </div>
                 </div>
-
-                {/* Search Button */}
-                <div className="md:col-span-1">
-                    <Button className="w-full h-14 bg-brand-primary hover:bg-brand-primary/90 text-white rounded-xl font-bold font-raleway text-lg flex items-center gap-2">
-                        <Icon icon="solar:magnifer-bold" className="size-5" />
-                        Search
-                    </Button>
-                </div>
-            </div>
-        </div>
+            </Container>
+        </section>
     )
 }
