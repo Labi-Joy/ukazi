@@ -45,7 +45,10 @@ export function InstructorCTA() {
                             </div>
                         </div>
 
-                        <button className="bg-[#333333] hover:bg-neutral-800 text-white font-bold h-16 px-12 rounded-lg text-xl transition-all shadow-xl">
+                        <button
+                            onClick={() => window.location.href = '/register/instructor'}
+                            className="bg-[#333333] hover:bg-neutral-800 text-white font-bold h-16 px-12 rounded-lg text-xl transition-all shadow-xl"
+                        >
                             Become Instructor
                         </button>
                     </div>

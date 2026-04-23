@@ -59,7 +59,10 @@ export function CategoryGrid() {
                 </div>
 
                 <div className="text-center">
-                    <button className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold h-14 px-12 rounded-lg text-lg transition-all shadow-xl shadow-brand-primary/20">
+                    <button
+                        onClick={() => window.location.href = '/register'}
+                        className="bg-brand-primary hover:bg-brand-primary/90 text-white font-bold h-14 px-12 rounded-lg text-lg transition-all shadow-xl shadow-brand-primary/20"
+                    >
                         Get Started
                     </button>
                 </div>

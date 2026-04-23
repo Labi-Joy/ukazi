@@ -4,14 +4,7 @@ import Link from "next/link"
 import { Container } from "@/components/common/Container"
 import { Logo } from "@/components/common/Logo"
 import { Button } from "@/components/ui/button"
-import { Icon } from "@iconify/react"
-
-const socialLinks = [
-    { icon: "mdi:instagram", href: "https://instagram.com/ukazilearn", label: "Instagram" },
-    { icon: "mdi:facebook", href: "#", label: "Facebook" },
-    { icon: "mdi:linkedin", href: "#", label: "LinkedIn" },
-    { icon: "mdi:twitter", href: "#", label: "Twitter" },
-]
+import Image from "next/image"
 
 const quickLinks = [
     { href: "/", label: "Home" },
@@ -20,74 +13,92 @@ const quickLinks = [
     { href: "/contact", label: "Contact" },
 ]
 
+const contactInfo = [
+    { icon: "/icons/phone.svg", text: "2348156442585", alt: "Phone" },
+    { icon: "/icons/mail.svg", text: "ukazilearn@gmail.com", alt: "Mail" },
+    { icon: "/icons/ig.svg", text: "@ukazilearn", alt: "Instagram" },
+]
+
 export function Footer() {
     return (
-        <footer className="bg-neutral-900 py-16 text-white">
-            <Container>
-                <div className="grid grid-cols-1 gap-12 lg:grid-cols-4 md:grid-cols-2">
-                    {/* Logo and Info */}
-                    <div className="space-y-6">
-                        <Logo variant="light" />
-                        <p className="text-neutral-300 font-raleway text-sm leading-relaxed max-w-xs">
-                            Ukazi is an innovative technology platform dedicated to shaping the future of work.
-                        </p>
-                        <div className="flex gap-4">
-                            {socialLinks.map((social) => (
-                                <Link
-                                    key={social.label}
-                                    href={social.href}
-                                    className="size-10 rounded-full bg-neutral-800 flex items-center justify-center hover:bg-brand-primary transition-colors"
-                                >
-                                    <Icon icon={social.icon} className="size-5" />
-                                </Link>
-                            ))}
+        <footer className="relative bg-[#1A1A1A] mt-40">
+            <Container className="relative">
+                {/* Floating Newsletter Card (Half-in, Half-out) */}
+                <div className="absolute right-0 top-0 -translate-y-1/2 w-full lg:w-[45%] px-0 z-20">
+                    <div className="bg-white rounded-[24px] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] p-10 lg:p-14 text-center space-y-10 border border-neutral-100">
+                        <div className="space-y-4">
+                            <h3 className="text-2xl lg:text-3xl font-extrabold font-raleway text-neutral-900 leading-tight">
+                                Subscribe to our newsletter.
+                            </h3>
+                            <p className="text-brand-primary text-lg font-bold font-raleway">
+                                Stay up to date about UKAZI
+                            </p>
                         </div>
-                    </div>
 
-                    {/* Quick Links */}
-                    <div className="space-y-6 lg:pl-12">
-                        <h4 className="text-lg font-bold font-raleway">Links</h4>
-                        <nav className="flex flex-col gap-4">
-                            {quickLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className="text-neutral-400 hover:text-white transition-colors font-raleway text-sm"
-                                >
-                                    {link.label}
-                                </Link>
-                            ))}
-                        </nav>
-                    </div>
-
-                    {/* Newsletter */}
-                    <div className="lg:col-span-2 space-y-6">
-                        <h4 className="text-lg font-bold font-raleway">Subscribe to our newsletter.</h4>
-                        <p className="text-neutral-400 font-raleway text-sm">Stay up to date about UKAZI</p>
-                        <div className="flex flex-col sm:flex-row gap-4 max-w-md">
+                        <div className="space-y-5 max-w-sm mx-auto">
                             <input
                                 type="email"
-                                placeholder="Enter your email"
-                                className="flex-1 bg-neutral-800 border-none rounded-xl px-6 py-3 text-sm focus:ring-2 focus:ring-brand-primary outline-none"
+                                placeholder="Enter Your Email"
+                                className="w-full bg-white border-2 border-[#F3E8FF] rounded-2xl px-6 py-5 text-base font-raleway text-neutral-600 focus:outline-none focus:ring-2 focus:ring-brand-primary/20 transition-all text-center"
                             />
-                            <Button className="bg-brand-primary hover:bg-brand-primary/90 rounded-xl px-8 py-3 h-auto font-bold">
+                            <Button className="w-full bg-brand-primary hover:bg-brand-primary/90 rounded-2xl py-5 h-auto text-lg font-bold font-raleway transition-all shadow-lg shadow-brand-primary/20">
                                 Subscribe
                             </Button>
                         </div>
                     </div>
                 </div>
 
-                <div className="mt-16 pt-8 border-t border-neutral-800 flex flex-col sm:flex-row justify-between items-center gap-4">
-                    <p className="text-neutral-500 text-xs font-raleway">
-                        Copyright © 2024 Ukazi. All rights reserved.
+                <div className="grid lg:grid-cols-2 gap-12 items-start pt-3 lg:pt-6 pb-20">
+                    {/* Left Side: Logo and Company Info (Sits well in black bg) */}
+                    <div className="space-y-10">
+                        <Logo variant="light" />
+                        <p className="text-neutral-400 font-raleway text-lg leading-relaxed max-w-sm">
+                            Ukazi is an innovative technology platform dedicated to shaping the future of work by equipping global talent with essential skills, resources, and mobility options for success in a dynamic job market.
+                        </p>
+
+                        {/* Navigation Links */}
+                        <nav className="flex flex-wrap gap-x-10 gap-y-4">
+                            {quickLinks.map((link) => (
+                                <Link
+                                    key={link.label}
+                                    href={link.href}
+                                    className="text-white hover:text-brand-primary transition-colors font-bold font-raleway text-lg underline underline-offset-8 decoration-white/20"
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </nav>
+                    </div>
+                </div>
+            </Container>
+
+            {/* Horizontal Line - Full Width */}
+            <div className="w-full h-px bg-white/10" />
+
+            <Container className="py-12">
+                {/* Bottom Bar */}
+                <div className="flex flex-col lg:flex-row justify-between items-center gap-8">
+                    <p className="text-neutral-400 font-medium font-raleway text-lg">
+                        Copyright 2024
                     </p>
-                    <div className="flex gap-6">
-                        <Link href="/terms" className="text-neutral-500 hover:text-white text-xs font-raleway transition-colors">
-                            Terms & Conditions
-                        </Link>
-                        <Link href="/privacy" className="text-neutral-500 hover:text-white text-xs font-raleway transition-colors">
-                            Privacy Policy
-                        </Link>
+
+                    <div className="flex flex-col sm:flex-row gap-x-12 gap-y-6">
+                        {contactInfo.map((info, idx) => (
+                            <div key={idx} className="flex items-center gap-3">
+                                <div className="size-5 flex items-center justify-center opacity-80">
+                                    <Image
+                                        src={info.icon}
+                                        alt={info.alt}
+                                        width={20}
+                                        height={20}
+                                        className="w-full h-auto"
+                                    />
+                                </div>
+                                <span className="text-neutral-400 font-medium font-raleway text-lg tracking-tight">
+                                    {info.text}
+                                </span>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </Container>

@@ -49,7 +49,7 @@ const AccordionItem = ({ children, value, openItems, toggleItem, className }: an
   )
 }
 
-const AccordionTrigger = ({ children, isOpen, onClick, className }: any) => (
+const AccordionTrigger = ({ children, isOpen, onClick, className, hideDefaultIcon = false }: any) => (
   <button
     type="button"
     onClick={onClick}
@@ -58,20 +58,23 @@ const AccordionTrigger = ({ children, isOpen, onClick, className }: any) => (
       className
     )}
   >
-    {children}
-    <ChevronDown className={cn("h-4 w-4 shrink-0 transition-transform duration-200", isOpen && "rotate-180")} />
+    {typeof children === "function" ? children({ isOpen }) : children}
+    {!hideDefaultIcon && (
+      <ChevronDown className={cn("h-4 w-4 shrink-0 transition-transform duration-200", isOpen && "rotate-180")} />
+    )}
   </button>
 )
 
 const AccordionContent = ({ children, isOpen, className }: any) => (
   <div
     className={cn(
-      "overflow-hidden text-sm transition-all",
-      isOpen ? "max-h-96 pb-4" : "max-h-0",
-      className
+      "overflow-hidden text-sm transition-all duration-300 ease-in-out",
+      isOpen ? "max-h-96 opacity-100 pb-8" : "max-h-0 opacity-0 invisible"
     )}
   >
-    {children}
+    <div className={cn("px-10", className)}>
+      {children}
+    </div>
   </div>
 )
 

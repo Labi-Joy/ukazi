@@ -38,9 +38,11 @@ export function Navbar() {
                 </nav>
 
                 <div className="flex items-center gap-4">
-
+                    <Button variant="ghost" className="font-bold font-raleway text-neutral-900 hover:text-brand-primary" asChild>
+                        <Link href="/login">Log in</Link>
+                    </Button>
                     <Button className="bg-brand-primary hover:bg-brand-primary text-white font-bold rounded-none px-9 py-6" asChild>
-                        <Link href="/register">Sign in</Link>
+                        <Link href="/register">Sign up</Link>
                     </Button>
                 </div>
             </Container>

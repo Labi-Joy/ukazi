@@ -1,8 +1,8 @@
 "use client"
 
 import { Container } from "@/components/common/Container"
-import { Icon } from "@iconify/react"
-import { motion } from "framer-motion"
+import Image from "next/image"
+import { ChevronRight } from "lucide-react"
 import {
     Accordion,
     AccordionContent,
@@ -12,45 +12,67 @@ import {
 
 const faqs = [
     {
-        question: "How do I get started with Ukazi?",
-        answer: "Getting started is easy! Simply create an account, browse our extensive course catalog, and enroll in your first course."
+        question: "What type of Courses are available?",
+        answer: "Ukazi offers wide range of professional courses in creative fields which include Graphic Design, UI/UX Design, Businesses, Web Development and Design and Handmake skill"
     },
     {
-        question: "Is there a certificate after finishing a course?",
-        answer: "Yes, every course on Ukazi comes with a verified certificate of completion that you can share on your LinkedIn profile or resume."
+        question: "Can I get a refund if I am not satisfied?",
+        answer: "Our priority is your satisfaction. If our courses do not meet your expectations, we offer a straightforward refund policy within the first 14 days of enrollment."
     },
     {
-        question: "Can I learn at my own pace?",
-        answer: "Absolutely! Our courses are designed to be flexible. Once enrolled, you have lifetime access to the materials."
+        question: "Is help available anytime?",
+        answer: "Yes! Our support team and mentors are available 24/7 to help you with any questions or technical issues you might encounter during your learning journey."
     },
     {
-        question: "Are the courses for beginners or experts?",
-        answer: "We offer courses for all skill levels, from complete beginners to advanced professionals looking to sharpen their skills."
+        question: "Does the courses offers degree certificate",
+        answer: "Upon successful completion of any course, you will receive a verified professional certificate that is recognized by industry partners globally."
+    },
+    {
+        question: "Are the courses Accredited?",
+        answer: "Yes, our curriculum is developed in partnership with leading industry experts and educational bodies to ensure all our courses meet international accreditation standards."
+    },
+    {
+        question: "Will I get a refund if I wish to quit?",
+        answer: "We understand that circumstances change. You can request a full refund if you decide to quit within our standard grace period, no questions asked."
     }
 ]
 
 export function FAQSection() {
     return (
-        <section className="py-24 bg-white overflow-hidden">
-            <Container className="grid lg:grid-cols-2 gap-20 items-center">
-                <div className="space-y-12">
-                    <div className="space-y-4">
-                        <h2 className="text-4xl lg:text-5xl font-extrabold font-raleway text-neutral-900 leading-tight">
-                            Questions that might bother <span className="text-brand-primary">your mind</span> to answer them
-                        </h2>
-                    </div>
+        <section className="py-24 lg:py-32 bg-white overflow-hidden">
+            <Container className="grid lg:grid-cols-2 gap-20 items-start">
 
-                    <Accordion type="single" collapsible className="w-full space-y-4">
+                {/* Left Column: Title & Accordion */}
+                <div className="space-y-12">
+                    <h2 className="text-4xl lg:text-5xl font-extrabold font-raleway leading-tight tracking-tight">
+                        <span className="text-[#9530E4]">Questions that might bother</span>
+                        <br />
+                        <span className="text-[#1A1A1A]">your mind-Let’s answer them</span>
+                    </h2>
+
+                    <Accordion type="single" collapsible className="w-full space-y-5">
                         {faqs.map((faq, idx) => (
                             <AccordionItem
                                 key={idx}
                                 value={`item-${idx}`}
-                                className="border-none bg-neutral-50 rounded-2xl px-6"
+                                className="border border-[#F3E8FF] bg-white rounded-[40px] px-2 shadow-sm transition-all duration-300 overflow-hidden"
                             >
-                                <AccordionTrigger className="text-lg font-bold font-raleway text-neutral-900 hover:no-underline py-6">
-                                    {faq.question}
+                                <AccordionTrigger
+                                    className="text-lg lg:text-xl font-bold font-raleway text-neutral-900 hover:no-underline py-7 px-10 flex justify-between group"
+                                    hideDefaultIcon
+                                >
+                                    {(props: any) => (
+                                        <>
+                                            <span className="text-left leading-tight group-hover:text-brand-primary transition-colors">
+                                                {faq.question}
+                                            </span>
+                                            <div className={`relative size-6 shrink-0 transition-transform duration-300 ${props.isOpen ? 'rotate-90' : ''}`}>
+                                                <ChevronRight className="size-6 text-neutral-900" />
+                                            </div>
+                                        </>
+                                    )}
                                 </AccordionTrigger>
-                                <AccordionContent className="text-neutral-600 font-raleway text-base pb-6 leading-relaxed">
+                                <AccordionContent className="text-neutral-500 font-raleway text-base leading-relaxed max-w-[95%]">
                                     {faq.answer}
                                 </AccordionContent>
                             </AccordionItem>
@@ -58,29 +80,40 @@ export function FAQSection() {
                     </Accordion>
                 </div>
 
-                <motion.div
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6 }}
-                    viewport={{ once: true }}
-                    className="relative"
-                >
-                    <div className="relative z-10 rounded-[60px] overflow-hidden border-8 border-brand-primary/5 shadow-2xi h-[600px]">
-                        <img
-                            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1000&auto=format&fit=crop"
-                            alt="Student collaborating"
-                            className="size-full object-cover"
+                {/* Right Column: Image Collage */}
+                <div className="relative w-full aspect-square max-w-[600px] ml-auto">
+                    {/* Main Image Base Layer */}
+                    <div className="relative w-full h-full rounded-[60px] overflow-hidden z-10 shadow-2xl">
+                        <Image
+                            src="/images/real-faq-img.jpg"
+                            alt="Student biting pencil"
+                            fill
+                            className="object-cover"
+                            priority
+                        />
+
+                        {/* Overlay Abstract Image (Sits on top of main at the bottom) */}
+                        <div className="absolute inset-0 z-20 pointer-events-none">
+                            <Image
+                                src="/images/over-faq-img.png"
+                                alt="Purple abstract overlay"
+                                fill
+                                className="object-cover object-bottom"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Inset Image (Woman with headset - Sits ON TOP and in the MIDDLE BOTTOM) */}
+                    <div className="absolute -bottom-40 left-1/2 -translate-x-1/2 z-30 w-[260px] h-[260px] rounded-[60px] overflow-hidden border-[15px] border-white shadow-2xl">
+                        <Image
+                            src="/images/under-faq-img.png"
+                            alt="Woman with headset"
+                            fill
+                            className="object-cover"
                         />
                     </div>
-                    {/* Floating badge */}
-                    <div className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl border border-neutral-100 space-y-4 max-w-[280px]">
-                        <div className="size-16 rounded-2xl bg-brand-primary/10 flex items-center justify-center">
-                            <Icon icon="solar:chat-round-dots-bold" className="text-brand-primary size-8" />
-                        </div>
-                        <p className="font-bold font-raleway text-neutral-900 text-lg">Still have more questions?</p>
-                        <p className="text-neutral-500 text-sm font-raleway">Contact our support team anytime</p>
-                    </div>
-                </motion.div>
+                </div>
+
             </Container>
         </section>
     )

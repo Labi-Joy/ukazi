@@ -13,9 +13,9 @@ export function Hero() {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="space-y-5 lg: pt-[-20px] gap-5"
+                    className="space-y-8 lg:-mt-14"
                 >
-                    <div className="space-y-3 lg: pt-[-20px]">
+                    <div className="space-y-6">
                         <h1 className="text-5xl lg:text-[70px] font-extrabold font-raleway leading-[1]">
                             <span className="text-brand-primary">Master a Unique</span> <br />
                             <span className="text-brand-primary">Creative skill</span> <span className="text-[#333333]">and</span> <br />
